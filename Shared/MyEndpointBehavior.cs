@@ -17,10 +17,40 @@ namespace Shared
         {
             clientRuntime.ClientMessageInspectors.Add(new MyClientMessageInspector());
             clientRuntime.CallbackDispatchRuntime.MessageInspectors.Add(new MyDispatchMessageInspector());
+            foreach (OperationDescription operationDescription in endpoint.Contract.Operations)
+            {
+                DataContractSerializerOperationBehavior dataContractSerializerOperationBehavior = operationDescription.Behaviors.Find<DataContractSerializerOperationBehavior>();
+                if (dataContractSerializerOperationBehavior != null)
+                {
+                    operationDescription.Behaviors.Remove(dataContractSerializerOperationBehavior);
+
+                    MyOperationBehavior myOperationBehavior = new MyOperationBehavior(operationDescription)
+                    {
+                        MaxItemsInObjectGraph = dataContractSerializerOperationBehavior.MaxItemsInObjectGraph
+                    };
+
+                    operationDescription.Behaviors.Add(myOperationBehavior);
+                }
+            }
         }
 
         public void ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
         {
+            foreach (OperationDescription operationDescription in endpoint.Contract.Operations)
+            {
+                DataContractSerializerOperationBehavior dataContractSerializerOperationBehavior = operationDescription.Behaviors.Find<DataContractSerializerOperationBehavior>();
+                if (dataContractSerializerOperationBehavior != null)
+                {
+                    operationDescription.Behaviors.Remove(dataContractSerializerOperationBehavior);
+
+                    MyOperationBehavior myOperationBehavior = new MyOperationBehavior(operationDescription)
+                    {
+                        MaxItemsInObjectGraph = dataContractSerializerOperationBehavior.MaxItemsInObjectGraph
+                    };
+
+                    operationDescription.Behaviors.Add(myOperationBehavior);
+                }
+            }
         }
 
         public void Validate(ServiceEndpoint endpoint)
