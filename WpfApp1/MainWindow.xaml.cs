@@ -59,6 +59,18 @@ namespace WpfApp1
             LogStr += "Connected.\n";
         });
 
+        public AsyncDelegateCommand HttpConnectClick => new AsyncDelegateCommand(() =>
+        {
+            LogStr += "Connecting to Service... \n";
+            BasicHttpBinding Binding = new BasicHttpBinding();
+
+            ChannelFactory<ICalculatorService> Factory = new ChannelFactory<ICalculatorService>(Binding);
+            Factory.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
+
+            CalculatorService = Factory.CreateChannel(new EndpointAddress(EndpointUrl));
+            LogStr += "Connected.\n";
+        });
+
         public AsyncDelegateCommand SendEchoClick => new AsyncDelegateCommand( async () =>
         {
             await CalculatorService.Echo(EchoText);

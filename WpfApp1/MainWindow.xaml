@@ -10,8 +10,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
@@ -22,7 +22,10 @@
         
         <Label Grid.Row="0" Grid.Column="0" Margin="4,4,4,4" Content="Endpoint: "/>
         <TextBox Grid.Row="0" Grid.Column="1" Margin="4,4,4,4" Text="{Binding EndpointUrl}" />
-        <Button Grid.Row="0" Grid.Column="2" Margin="4,4,4,4" Content="Connect" Command="{Binding ConnectClick}" />
+        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+            <Button  Margin="4,4,4,4" Content="NetTcp" Command="{Binding ConnectClick}" />
+            <Button  Margin="4,4,4,4" Content="Http" Command="{Binding HttpConnectClick}" />
+        </StackPanel>
 
         <Label Grid.Row="1" Grid.Column="0" Margin="4,4,4,4" Content="Add: "/>
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="4,4,4,4" Orientation="Horizontal">

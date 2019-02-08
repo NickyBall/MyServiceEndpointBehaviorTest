@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
-    [ServiceContract(CallbackContract = typeof(ICalculatorCallbackService))]
+    [ServiceContract]
     public interface ICalculatorService
     {
         [OperationContract(IsOneWay = false)]

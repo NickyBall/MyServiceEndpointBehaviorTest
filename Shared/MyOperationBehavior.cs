@@ -16,11 +16,13 @@ namespace Shared
          
         public override XmlObjectSerializer CreateSerializer(Type type, XmlDictionaryString name, XmlDictionaryString ns, IList<Type> knownTypes)
         {
+            base.CreateSerializer(type, name, ns, knownTypes);
             return new MyObjectSerializer();
         }
 
         public override XmlObjectSerializer CreateSerializer(Type type, string name, string ns, IList<Type> knownTypes)
         {
+            base.CreateSerializer(type, name, ns, knownTypes);
             return new MyObjectSerializer();
         }
     }

@@ -35,7 +35,14 @@ namespace Stateless1
                     Listener.ServiceHost.Description.Endpoints.Last().EndpointBehaviors.Add(new MyEndpointBehavior());
 
                     return Listener;
-                })
+                }, "NetTcp"),
+                new ServiceInstanceListener(context =>
+                {
+                    var Listener = new WcfCommunicationListener<ICalculatorService>(context, new CalculatorService(), new BasicHttpBinding(), "HttpServiceEndpoint");
+                    Listener.ServiceHost.Description.Endpoints.Last().EndpointBehaviors.Add(new MyEndpointBehavior());
+
+                    return Listener;
+                }, "Http")
             };
         }
 
